@@ -121,6 +121,7 @@ TEST(Ntl, Speed_test)
     auto proverCir = make_shared<CBatchEnc>(decryptor, msgCount, rangeProofCount, slotSize, msgPerBatch);
     auto giRequired = proverCir->estimateGeneratorsRequired();
     auto gi = decryptor->genGenerators(giRequired); // public paramters: generators gi for commitment scheme
+    fs << "giRequired:" << giRequired <<"," << endl;
 
     Vec<ZZ> msg;
     for (size_t i = 0; i < msgCount; i++) {
