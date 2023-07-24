@@ -20,7 +20,9 @@ CPP_SRC_FILES := $(wildcard \
 )
 CPP_OBJS := $(patsubst ${CPP_DIR}/%,%,${CPP_SRC_FILES})
 CPP_INCLUDES := \
-	$(CPP_DIR)
+	$(CPP_DIR) \
+	/opt/homebrew/include
+	
 CPP_TARGET := $(wildcard \
 	${CPP_DIR}/*.o \
 	${CPP_DIR}/**/*.o \
@@ -34,6 +36,8 @@ TEST_OBJS := $(patsubst %.cpp,%.o,${TEST_FILES})
 
 
 FLAGS := -std=c++11 -isystem ${GTEST_DIR}/include -pthread
+LDFLAGS := -L/opt/homebrew/lib
+
 COVERAGE_FLAG:=
 ifeq ($(OS),Darwin)
 	COVERAGE_FLAG = -L$(CLANG_SDK_PATH) \
@@ -81,7 +85,7 @@ $(COVERAGE_OUT):
 
 .PHONY: compile_test
 compile_test: $(TEST_OUT) $(TEST_OBJS)
-	g++ $(FLAGS) -lpthread $(CPP_TARGET) \
+	g++ $(FLAGS) $(LDFLAGS) -lpthread $(CPP_TARGET) \
 		$(foreach f, $(TEST_LIST), $(TEST_OUT)/$f.o) \
 		$(GTEST_DIR)/build/gtest_main.a -o $(TEST_OUT)/$(TEST_NAME) \
 			$(COVERAGE_FLAG) \
@@ -98,6 +102,12 @@ test_coverage: $(COVERAGE_OUT)
 	@echo "\033[33mRun coverage report...\033[0m"
 	cd $(CPP_DIR) && gcov $(foreach f, $(CPP_OBJS), $f) > /dev/null
 
-	@lcov -q --no-external -c -b $(CPP_DIR)/app -d $(CPP_DIR)/app --ignore-errors graph -o $(COVERAGE_OUT)/coverage.info
-	@lcov -r $(COVERAGE_OUT)/coverage.info '$(CPP_DIR)/app/*/*.hpp' '$(CPP_DIR)/app/*.hpp' '*.hpp' -o $(COVERAGE_OUT)/coverage.info
-	@genhtml $(COVERAGE_OUT)/coverage.info -o $(COVERAGE_OUT)
+	@lcov -q --no-external -c -b $(CPP_DIR) -d $(CPP_DIR) --ignore-errors inconsistent --ignore-errors graph -o $(COVERAGE_OUT)/coverage.info
+	@lcov -r $(COVERAGE_OUT)/coverage.info --ignore-errors unused --ignore-errors inconsistent '$(CPP_DIR)/*/*.hpp' '$(CPP_DIR)/*.hpp' '*.hpp' -o $(COVERAGE_OUT)/coverage.info
+	@genhtml $(COVERAGE_OUT)/coverage.info --ignore-errors unused --ignore-errors inconsistent -o $(COVERAGE_OUT)
+
+
+# original
+#	@lcov -q --no-external -c -b $(CPP_DIR)/app -d $(CPP_DIR)/app --ignore-errors graph -o $(COVERAGE_OUT)/coverage.info
+#	@lcov -r $(COVERAGE_OUT)/coverage.info '$(CPP_DIR)/app/*/*.hpp' '$(CPP_DIR)/app/*.hpp' '*.hpp' -o $(COVERAGE_OUT)/coverage.info
+#	@genhtml $(COVERAGE_OUT)/coverage.info -o $(COVERAGE_OUT)

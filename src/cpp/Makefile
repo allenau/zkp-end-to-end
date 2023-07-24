@@ -15,7 +15,8 @@ CPP_OBJS := $(patsubst %.cpp,%,${CPP_SRC_FILES})
 CPP_OBJS_OBJS := $(patsubst %.cpp,%.o,${CPP_SRC_FILES})
 
 CPP_INCLUDES := \
-	$(SRC_DIR)
+	$(SRC_DIR) \
+	/opt/homebrew/include
 
 CPP_TARGET := $(CPP_OUT)/$(PROJ_NAME)
 
