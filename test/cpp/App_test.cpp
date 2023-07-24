@@ -21,7 +21,7 @@ namespace
 //*/
 TEST(App, Run)
 {
-  string filename = "../../test_files/test0.csv";
+  string filename = "prover_verify_time.csv";
   ifstream ifile(filename);
   ofstream fs;
   if (ifile)
@@ -63,17 +63,17 @@ TEST(App, Run)
 
   size_t byteLength, msgCount, rangeProofCount, slotSize, msgPerBatch;
 
-  byteLength = 8; // bytes
-  msgCount = 10;
-  rangeProofCount = 10;
+  byteLength = 256; // bytes
+  msgCount = 100;
+  rangeProofCount = 128;
   slotSize = 4;
   msgPerBatch = 15;
 
   // vector<size_t> bls({8, 16, 32, 64, 128, 256});
   // vector<size_t> ms({10, 20, 50, 100, 200});
   // vector<size_t> bls({64});
-  vector<size_t> bls({16});
-  vector<size_t> ms({10});
+  vector<size_t> bls ({128, 256});;
+  vector<size_t> ms({100});
   // vector<size_t> bls({64, 128});
   // vector<size_t> ms({300, 400, 500, 600, 700, 800, 900, 1000});
   for (size_t i = 0; i < bls.size(); i++)

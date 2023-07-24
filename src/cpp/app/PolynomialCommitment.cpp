@@ -37,16 +37,57 @@ PolynomialCommitment::PolynomialCommitment(const ZZ &Q, const ZZ &p, const ZZ_p 
 
 ZZ_p PolynomialCommitment::commit(const Vec<ZZ_p> &mi, const ZZ_p &r)
 {
+  unsigned short bitlength = r.ModulusSize();
+  cout << "is this correct bitlength?" << bitlength << endl; 
   ZZ_pPush push(Q);
 
   ZZ_p gx;
   ZZ_p ret = power(g, conv<ZZ>(r));
 
-  for (size_t i = 0; i < mi.length(); i++)
+  Vec<ZZ> zmi; 
+  zmi.SetLength(mi.length());
+  conv(zmi,mi);
+
+  const unsigned short bucket_size = 16; // make sure length 2048 is dividisble by bucket size
+  unsigned short round = bitlength/bucket_size;
+  unsigned int pow = 1;
+  cout << "Number of rounds:" << round << endl;
+
+  for (unsigned short j = 0; j < round; j++ ) {
+    ZZ_p S[bucket_size] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+    ZZ_p T[bucket_size] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+    
+    unsigned short t = 0;
+    unsigned short shift = 4*round; 
+    for (unsigned short i =0; i < zmi.length(); i++ ) {
+      t = NTL::to_int(zmi[i] >> shift) & 0x0F;
+      mul(S[t], S[t], gi[i]);
+    }
+
+    T[bucket_size-1] = S[bucket_size-1];
+    for (unsigned short i=bucket_size-1; i>0; i--) {
+      mul (T[i-1], T[i], S[i-1]);
+    }
+
+    ZZ_p R = 1;
+    for (unsigned short i = 0; i < bucket_size; i++) {
+      mul(R, R, T[i]);      
+    }
+    
+    power(R, R, pow);
+    pow = pow * bucket_size;
+    
+    mul(ret, ret, R);
+  }
+
+
+/*  for (size_t i = 0; i < zmi.length(); i++)
   {
-    power(gx, gi[i], conv<ZZ>(mi[i]));
+    //power(gx, gi[i], conv<ZZ>(mi[i]));
+    power(gx, gi[i], zmi[i]);
     mul(ret, ret, gx);
   }
+*/
   return ret;
 }
 

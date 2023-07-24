@@ -122,6 +122,7 @@ void polyu::run(const shared_ptr<PaillierEncryption> &crypto, size_t msgCount, s
   Vec<ZZ_p> commits;
   prover->commit(commits);
   commitTime += Timer::end("P.commit");
+  cout << "Prover commit done:" << commitTime << endl;
 
   // P: prover calculate challenge value Y (non-interactive mode)
   Timer::start("P.y");
