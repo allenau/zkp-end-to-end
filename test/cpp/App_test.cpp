@@ -64,7 +64,7 @@ TEST(App, Run)
   size_t byteLength, msgCount, rangeProofCount, slotSize, msgPerBatch;
 
   byteLength = 128; // bytes
-  msgCount = 10;
+  msgCount = 33;
   rangeProofCount = 80;
   slotSize = 4;
   msgPerBatch = 15;

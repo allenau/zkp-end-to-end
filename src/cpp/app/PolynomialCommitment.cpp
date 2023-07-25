@@ -64,9 +64,9 @@ ZZ_p PolynomialCommitment::commitFast(const Vec<ZZ_p> &mi, const ZZ_p &r)
   
 
 
-  const unsigned int bucket_size = 16; // see below. the 4.0 depends on the bucket_size. the number should be log bucket_size
+  const unsigned int bucket_size = 256; // see below. the 4.0 depends on the bucket_size. the number should be log bucket_size
  
-  unsigned long round = ceil(bitlength/4.0); //1024-bit exponent, 4-bit bucket => 256 rounds 
+  unsigned long round = ceil(bitlength/8.0); //1024-bit exponent, 4-bit bucket => 256 rounds 
   // has to tune the 4.0 to represent the bucket size of 16
   
   ZZ pow = conv<ZZ>(1);
@@ -83,7 +83,7 @@ ZZ_p PolynomialCommitment::commitFast(const Vec<ZZ_p> &mi, const ZZ_p &r)
     }
     
     long t = 0;
-    ZZ flag = ConvertUtils::hexToZZ("0F");
+    ZZ flag = ConvertUtils::hexToZZ("FF");
     ZZ tmp;
     
     for (unsigned int i =0; i < zmi.length(); i++ ) {
@@ -98,7 +98,7 @@ ZZ_p PolynomialCommitment::commitFast(const Vec<ZZ_p> &mi, const ZZ_p &r)
    //   cout << "i=" << i << ":" << S[i] << "|";
    // }
 
-    shift = shift + 4;
+    shift = shift + 8;
     T[bucket_size-1] = S[bucket_size-1];
     for (unsigned int i=bucket_size-1; i>1; i--) {
       mul (T[i-1], T[i], S[i-1]);
@@ -108,11 +108,11 @@ ZZ_p PolynomialCommitment::commitFast(const Vec<ZZ_p> &mi, const ZZ_p &r)
     for (unsigned int i = 1; i < bucket_size; i++) {
       mul(R, R, T[i]);      
     }
-    power(pow, bucket_size, j);
+    
 
     //cout << "Round:" << j << "Power:" << pow << endl;
-    power(R, R, pow);
-   
+   power(R, R, pow);
+   mul(pow, pow, bucket_size);
     
     
     mul(ret, ret, R);
