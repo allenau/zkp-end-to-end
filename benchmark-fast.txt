@@ -1,0 +1,168 @@
+Fast 
+==================== FAST Bucket 256
+P.encrypt time: 0.128
+P.Ljir time: 0
+P.Lj time: 0.001
+P.wireUp time: 1.182
+P.run time: 0.846
+P.circuit time: 1.364
+message count: 33
+byte length: 1024-bit
+single encrypt circuit's N: 1536
+single encrypt circuit's Q: 3071
+batch encrypt circuit's N: 179232
+batch encrypt circuit's Q: 358464
+P.commit time: 683.656
+Prover commit done:683.656
+P.y time: 0.005
+prover.setY time: 0.503
+prover.rx time: 0.336
+sx.wai time: 0.575
+sx.wbi time: 0.259
+sx.wci time: 1.318
+prover.sx time: 2.154
+prover.rx_ time: 0.867
+prover.ky time: 0.014
+prover.tx.mul time: 5.894
+prover.txT time: 0
+prover.txCommit time: 21.636
+prover.polyCommit time: 31.408
+P.polyCommit time: 31.544
+P.x time: 0
+P.prove time: 0.948
+V.Ljir time: 0
+V.wireUp time: 1.145
+V.circuit time: 1.034
+V.y time: 0.005
+V.x time: 0
+verifier.polyVerify time: 0.515
+verifier.calcV1 time: 0
+verifier.setY time: 0.484
+sx.wai time: 0.557
+sx.wbi time: 0.247
+sx.wci time: 1.363
+verifier.sx time: 2.911
+verifier.r_ time: 0
+verifier.rr_ time: 0.014
+verifier.calcV2 time: 3.411
+verifier.commitR1 time: 0.538
+verifier.commitR2 time: 2.86
+verifier.verify time: 7.325
+V.verify time: 7.406
+
+==========
+message count: 33
+message/batch: 15
+batch count: 3
+byte length: 1024-bit
+byte length: 128 bytes
+message size: 128 bytes
+slot size: 4 bytes
+slot/message: 32
+range proof count: 80
+cipher size: 256 bytes
+proof size: 506972 bytes
+proof size/message: 15362.8 bytes
+
+single encrypt circuit's N: 1536
+single encrypt circuit's Q: 3071
+batch encrypt circuit's N: 179232
+batch encrypt circuit's Q: 358464
+batch encrypt circuit's matrix m: 423
+batch encrypt circuit's matrix n: 424
+
+encryption time: 0.128
+circuit create time: 2.363
+value assign time: 0.846
+commit time: 683.656
+prove time: 32.497
+verify time: 7.411
+==========
+
+
+=====
+Slow --- Naive 
+
+P.encrypt time: 0.127
+P.Ljir time: 0
+P.Lj time: 0.006
+P.wireUp time: 1.175
+P.run time: 0.86
+P.circuit time: 1.37
+message count: 33
+byte length: 1024-bit
+single encrypt circuit's N: 1532
+single encrypt circuit's Q: 3063
+batch encrypt circuit's N: 178768
+batch encrypt circuit's Q: 357536
+P.commit time: 1204.84
+Prover commit done:1204.84
+P.y time: 0.005
+prover.setY time: 0.509
+prover.rx time: 0.35
+sx.wai time: 0.584
+sx.wbi time: 0.263
+sx.wci time: 1.331
+prover.sx time: 2.18
+prover.rx_ time: 0.87
+prover.ky time: 0.016
+prover.tx.mul time: 5.811
+prover.txT time: 0
+prover.txCommit time: 6.886
+prover.polyCommit time: 16.626
+P.polyCommit time: 16.782
+P.x time: 0
+P.prove time: 0.98
+V.Ljir time: 0
+V.wireUp time: 1.126
+V.circuit time: 1.028
+V.y time: 0.005
+V.x time: 0
+verifier.polyVerify time: 0.251
+verifier.calcV1 time: 0
+verifier.setY time: 0.499
+sx.wai time: 0.585
+sx.wbi time: 0.258
+sx.wci time: 1.459
+verifier.sx time: 3.041
+verifier.r_ time: 0
+verifier.rr_ time: 0.014
+verifier.calcV2 time: 3.555
+verifier.commitR1 time: 0.949
+verifier.commitR2 time: 2.844
+verifier.verify time: 7.601
+V.verify time: 7.686
+
+==========
+message count: 33
+message/batch: 15
+batch count: 3
+byte length: 1024-bit
+byte length: 128 bytes
+message size: 128 bytes
+slot size: 4 bytes
+slot/message: 32
+range proof count: 80
+cipher size: 256 bytes
+proof size: 505390 bytes
+proof size/message: 15314.8 bytes
+
+single encrypt circuit's N: 1532
+single encrypt circuit's Q: 3063
+batch encrypt circuit's N: 178768
+batch encrypt circuit's Q: 357536
+batch encrypt circuit's matrix m: 423
+batch encrypt circuit's matrix n: 423
+
+encryption time: 0.127
+circuit create time: 2.3525
+value assign time: 0.86
+commit time: 1204.84
+prove time: 17.767
+verify time: 7.691
+==========
+
+
+
+
+====

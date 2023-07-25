@@ -234,7 +234,7 @@ prove time: 32.135
 verify time: 7.748
 ==========
 
-====================
+====================navie ======
 P.encrypt time: 0.128
 P.Ljir time: 0
 P.Lj time: 0.008
@@ -285,7 +285,6 @@ verifier.commitR2 time: 2.866
 verifier.verify time: 7.548
 V.verify time: 7.609
 
-==========
 message count: 33
 message/batch: 15
 batch count: 3
@@ -312,3 +311,60 @@ value assign time: 0.845
 commit time: 1215.72
 prove time: 17.99
 verify time: 7.614
+
+navie
+message count: 33
+message/batch: 15
+batch count: 3
+byte length: 1024-bit
+byte length: 128 bytes
+message size: 128 bytes
+slot size: 4 bytes
+slot/message: 32
+range proof count: 80
+cipher size: 256 bytes
+proof size: 510064 bytes
+proof size/message: 15456.5 bytes
+
+single encrypt circuit's N: 1552
+single encrypt circuit's Q: 3103
+batch encrypt circuit's N: 181088
+batch encrypt circuit's Q: 362176
+batch encrypt circuit's matrix m: 426
+batch encrypt circuit's matrix n: 426
+
+encryption time: 0.128
+circuit create time: 2.3835
+value assign time: 0.845
+commit time: 1215.72
+prove time: 17.99
+verify time: 7.614
+
+
+FAST
+message count: 33
+message/batch: 15
+batch count: 3
+byte length: 1024-bit
+byte length: 128 bytes
+message size: 128 bytes
+slot size: 4 bytes
+slot/message: 32
+range proof count: 80
+cipher size: 256 bytes
+proof size: 503335 bytes
+proof size/message: 15252.6 bytes
+
+single encrypt circuit's N: 1521
+single encrypt circuit's Q: 3041
+batch encrypt circuit's N: 177492
+batch encrypt circuit's Q: 354984
+batch encrypt circuit's matrix m: 421
+batch encrypt circuit's matrix n: 422
+
+encryption time: 0.128
+circuit create time: 2.3515
+value assign time: 0.837
+commit time: 678.93
+prove time: 32.135
+verify time: 7.748
