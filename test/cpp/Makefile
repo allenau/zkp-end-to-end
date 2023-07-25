@@ -32,7 +32,11 @@ CPP_TARGET := $(wildcard \
 TEST_FILES := $(wildcard ${SRC_DIR}/*.cpp)
 # TEST_LIST := $(patsubst ${SRC_DIR}/%.cpp,%,${TEST_FILES})
 TEST_LIST := App_test \
-Ntl_test
+#PolynomialCommitment_test \
+#PolynomialCommitment_test \
+# App_test \
+# Ntl_test \
+
 TEST_OBJS := $(patsubst %.cpp,%.o,${TEST_FILES})
 
 

@@ -88,6 +88,16 @@ public:
   ZZ_p commit(const Vec<ZZ_p> &mi, const ZZ_p &r);
 
   /**
+   * @brief Commit a message using multi-base EXP
+   *
+   * @param mi Message (m)
+   * @param r Randomness (r)
+   * @return ZZ_p Commitment (c)
+   */
+  ZZ_p commitFast(const Vec<ZZ_p> &mi, const ZZ_p &r);
+
+
+  /**
    * @brief Commit multiple messages
    *
    * @param ms Messages (ms)

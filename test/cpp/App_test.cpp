@@ -63,17 +63,17 @@ TEST(App, Run)
 
   size_t byteLength, msgCount, rangeProofCount, slotSize, msgPerBatch;
 
-  byteLength = 256; // bytes
-  msgCount = 100;
-  rangeProofCount = 128;
+  byteLength = 128; // bytes
+  msgCount = 10;
+  rangeProofCount = 80;
   slotSize = 4;
   msgPerBatch = 15;
 
   // vector<size_t> bls({8, 16, 32, 64, 128, 256});
   // vector<size_t> ms({10, 20, 50, 100, 200});
   // vector<size_t> bls({64});
-  vector<size_t> bls ({128, 256});;
-  vector<size_t> ms({100});
+  vector<size_t> bls ({128});;
+  vector<size_t> ms({33});
   // vector<size_t> bls({64, 128});
   // vector<size_t> ms({300, 400, 500, 600, 700, 800, 900, 1000});
   for (size_t i = 0; i < bls.size(); i++)

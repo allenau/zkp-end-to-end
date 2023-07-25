@@ -55,6 +55,51 @@ void time_mul (ZZ_p one, ZZ_p two, ZZ GP_Q, string name, double & single_mul) {
     cout << "length is " << 1000 << endl;    
 }
 
+TEST(Ntl, property)
+{
+  cout << " === Ntl Test === " << endl;
+  unsigned char bytearray[256];
+
+  ZZ num = ConvertUtils::hexToZZ("ACB1"); //
+  ZZ Y = ConvertUtils::hexToZZ("0F");
+  ZZ Z;
+  ZZ flag = conv<ZZ>("255");
+  flag = Y;
+  ZZ X = conv<ZZ>("1854952506577119873857698280485327102978808098786911742041191626187809479620209526643318380828471870727407446386445347391076366356683037156540282749078094");
+  NTL::bit_and(Y, X, flag);
+  NTL::bit_and(Z, X >> 4 , flag);
+  NTL::bit_and(num, X >> 8 , flag);
+  int x = conv<int>(Y);
+  int y = conv<int>(Z);
+  int z = conv<int>(num);
+  cout << "0:" << x << endl;
+  cout << "1:" << y << endl;
+  cout << "2:" << z << endl;
+  cout << "size of X:" << NumBytes(X) << endl;
+  NTL::BytesFromZZ(bytearray,X, NumBytes(X));
+  for (int i=0;i<256;i++) {
+    cout << "X at i=" << i << "is:"<< (int)bytearray[i] << endl;
+  }
+
+  //ZZ num = conv<ZZ>("113");
+  //ZZ flag = conv<ZZ>("15");
+  //ZZ X = conv<ZZ>("1234");
+  X = ConvertUtils::hexToZZ("FFFF");
+  //ZZ Y = ConvertUtils::hexToZZ("0F");
+  cout << "num:" << num << endl;
+  cout << "X:" << X << endl;
+  cout << "Y:" << Y << endl;
+  NTL::bit_and(X, num , Y);
+  cout << "Bit_AND of num and Y:" << X << endl;
+  cout << "this is num:" << num << endl;
+  unsigned long t = 0, k = 0;
+  cout << "What is this?" << num.size() << endl;
+  
+  cout << "this is the last 4 bits of num:" << X << endl;
+  t = (NTL::to_int(num) >> 4); 
+  cout << " this is num right shifted by 4:" << t << endl;
+
+}
 
 TEST(Ntl, Speed_test)
 {

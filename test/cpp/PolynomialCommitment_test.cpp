@@ -8,6 +8,27 @@
 namespace
 {
 
+TEST(PolynomialCommitment, commitFast)
+{
+  auto Q = conv<ZZ>("607");
+  auto p = conv<ZZ>("101");
+  ZZ_p::init(Q);
+  auto g = conv<ZZ_p>("8");
+
+  PolynomialCommitment commitScheme(Q, p, g, 5);
+
+  ZZ_p::init(p);
+  auto r = conv<ZZ_p>("3");
+  Vec<ZZ_p> mi;
+  mi.SetLength(2);
+  mi[0] = conv<ZZ_p>("2");
+  mi[1] = conv<ZZ_p>("1");
+
+  // 8^3 * 64^2 * 512^1 mod 607
+  auto c = commitScheme.commitFast(mi, r);
+  EXPECT_EQ(ConvertUtils::toString(c), "100");
+}
+
 TEST(PolynomialCommitment, commit)
 {
   auto Q = conv<ZZ>("607");
@@ -29,6 +50,38 @@ TEST(PolynomialCommitment, commit)
   EXPECT_EQ(ConvertUtils::toString(c), "100");
 }
 
+TEST(PolynomialCommitment, commit2)
+{
+  int byteLength = 16; // 16 ~ 256 bits? 32 ~ 512 bits
+  auto crypto = make_shared<PaillierEncryption>(byteLength);
+  auto Q = crypto->getGroupQ();
+  auto p = crypto->getGroupP();
+  ZZ_p::init(Q);
+  auto g = crypto->getGroupG();
+  cout << "p:" << p << "size of p" << p.size() << endl;
+  cout << "p:" << p << "number of bits of p:" << NumBits(p) << endl;
+  cout << "Q:" << Q << "size of Q" << Q.size() << endl;
+  cout << "Q:" << Q << "number of bits of Q:" << NumBits(Q) << endl;
+  size_t n = 10;
+  PolynomialCommitment commitScheme(Q, p, g, n);
+
+  ZZ_p::init(p);
+
+  ZZ_p r;
+  r = MathUtils::randZZ_p(p, true);
+
+  Vec<ZZ_p> mi;
+  MathUtils::randVecZZ_p(n, p, mi, true);
+
+  // 8^3 * 64^77 * 512^33 mod 607 = 512 * 552 * 313 mod 607 = 167
+  auto c1 = commitScheme.commit(mi, r);
+  auto c2 = commitScheme.commitFast(mi, r);
+  cout << "my scheme:" << ConvertUtils::toString(c1) << endl;
+  cout << "naive scheme:" << ConvertUtils::toString(c2) << endl;
+
+  EXPECT_EQ(ConvertUtils::toString(c1), ConvertUtils::toString(c2));
+}
+
 TEST(PolynomialCommitment, PolyCommit_eval_verify)
 {
   auto Q = conv<ZZ>("607");
@@ -39,6 +92,8 @@ TEST(PolynomialCommitment, PolyCommit_eval_verify)
   size_t m2 = 2;
   size_t n = 2;
   PolynomialCommitment commitScheme(Q, p, g, n);
+
+  ZZ_p::init(p);
 
   ZZ_pX poly;
   SetCoeff(poly, 0, conv<ZZ_p>("1"));
@@ -73,6 +128,7 @@ TEST(PolynomialCommitment, PolyCommit_eval_verify)
   auto v = commitScheme.calcV(n, pe, x);
   EXPECT_EQ(v, conv<ZZ_p>("98"));
 }
+
 
 TEST(PolynomialCommitment, PolyCommit_eval_verify2)
 {
