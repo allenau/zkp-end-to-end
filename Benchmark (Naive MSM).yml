@@ -368,3 +368,5 @@ value assign time: 0.837
 commit time: 678.93
 prove time: 32.135
 verify time: 7.748
+
+FAST - Bucket = 256
